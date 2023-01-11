@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>从零开始开发学习minecraft光影 | 0MrMKG</title><meta name="author" content="0MrMKG"><meta name="copyright" content="0MrMKG"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="GLSL基础  变量修饰语句   内置变量      mc光影包特性  光影包结构 shaders分为几种着色器，运行过程中先是通过gbuffers_这类着色器的渲染，再通过composite，按照顺序执行composite1到9。最后由final处理。  颜色缓冲区    实验1：把mc输出图像改成黑白(简单更改rgb通道)  composite.vsh 1234567891011#versi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从零开始开发学习minecraft光影">
+<meta property="og:url" content="https://0mrmkg.github.io/2023/01/11/%E9%A1%B9%E7%9B%AE%E6%95%B4%E7%90%86-minecraft%E5%85%89%E5%BD%B1/index.html">
+<meta property="og:site_name" content="0MrMKG">
+<meta property="og:description" content="GLSL基础  变量修饰语句   内置变量      mc光影包特性  光影包结构 shaders分为几种着色器，运行过程中先是通过gbuffers_这类着色器的渲染，再通过composite，按照顺序执行composite1到9。最后由final处理。  颜色缓冲区    实验1：把mc输出图像改成黑白(简单更改rgb通道)  composite.vsh 1234567891011#versi">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230111192855587.png">
+<meta property="article:published_time" content="2023-01-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-01-11T14:09:10.820Z">
+<meta property="article:author" content="0MrMKG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230111192855587.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://0mrmkg.github.io/2023/01/11/%E9%A1%B9%E7%9B%AE%E6%95%B4%E7%90%86-minecraft%E5%85%89%E5%BD%B1/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '从零开始开发学习minecraft光影',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-01-11 22:09:10'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.postimg.cc/436z2nWg/2021-10-31-013029.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230111192855587.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">0MrMKG</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">从零开始开发学习minecraft光影</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-01-10T16:00:00.000Z" title="Created 2023-01-11 00:00:00">2023-01-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-01-11T14:09:10.820Z" title="Updated 2023-01-11 22:09:10">2023-01-11</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%B8%AA%E4%BA%BA%E9%A1%B9%E7%9B%AE/">个人项目</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="从零开始开发学习minecraft光影"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><ul>
+<li><p>GLSL基础</p>
+<ul>
+<li><p>变量修饰语句</p>
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230111193633244.png" alt="image-20230111193633244"></p>
+</li>
+<li><p>内置变量</p>
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230111202545595.png" alt="image-20230111202545595"></p>
+</li>
+<li></li>
+</ul>
+</li>
+<li><p>mc光影包特性</p>
+<ul>
+<li><p>光影包结构</p>
+<p>shaders分为几种着色器，运行过程中先是通过gbuffers_这类着色器的渲染，再通过composite，按照顺序执行composite1到9。最后由final处理。</p>
+</li>
+<li><p>颜色缓冲区</p>
+</li>
+</ul>
+</li>
+<li><p>实验1：把mc输出图像改成黑白(简单更改rgb通道)</p>
+<ul>
+<li><p>composite.vsh</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#version 120</span></span><br><span class="line"></span><br><span class="line">varying vec4 texcoord;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 为归一化的裁剪空间坐标赋值</span></span><br><span class="line">    gl_Position = ftransform();</span><br><span class="line">    <span class="comment">// 得到当前坐标在0号纹理(即输入图像)上的坐标</span></span><br><span class="line">    texcoord = gl_TextureMatrix[<span class="number">0</span>] * gl_MultiTexCoord0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><font color="green">#version 120</font> 声明glsl版本，必须加</li>
+<li><font color="green">ftransform()</font>函数自动进行MVP变化，最后将裁剪空间坐标传入<font color="green">gl_Position</font></li>
+<li><font color="green">gl_Position</font>默认是归一化的裁剪空间坐标，<font color="orange">只能在顶点着色器</font>上使用,它是一个vec4类型的数据</li>
+<li>创建名叫 texcoord 的vec4变量，将0号纹理坐标赋值给它，接下来将在片段着色器中使用该变量</li>
+<li><font color="green">gl_MultiTexCoord0</font>内置的纹理坐标，好像gl_TextureMatrix[0] * gl_MultiTexCoord0是连在一起用的</li>
+</ul>
+</li>
+<li><p>composite.fsh</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#version 120</span></span><br><span class="line"></span><br><span class="line">uniform sampler2D texture;</span><br><span class="line"></span><br><span class="line">varying vec4 texcoord;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* DRAWBUFFERS: 0 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    vec4 color = texture2D(texture, texcoord.st);</span><br><span class="line">    <span class="type">float</span> brightness = color.r*<span class="number">0.2</span> + color.g*<span class="number">0.7</span> + color.b*<span class="number">0.1</span>;</span><br><span class="line">    gl_FragData[<span class="number">0</span>] = vec4(vec3(brightness), <span class="number">1.0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//原作者是随便用了一个值来表示灰度，这里就可以像opencv一样对输出图片进行处理了</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>varying类型的数据就是负责传递数据，texcoord也就被传递过来了</p>
+</li>
+<li><p>uniform <font color="green">sampler2D</font> 可以声明一个纹理相关的变量当<font color="green">采样器</font></p>
+</li>
+<li><p>texture2D函数的api，传入一个采样器以及一个目标。这里的采样器是texture 目标是之前获得的texcoord，<font color="red">包含了纹理坐标（？）</font>，最后输出的是像素颜色</p>
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230111210110509.png" alt="image-20230111210110509"></p>
+</li>
+<li><p>color可以通过color.r color.b color.g来分解颜色</p>
+</li>
+<li><p>gl_FragData[0]就是第0号颜色缓冲区，现在向里面输入颜色。注意是vec4类型的，应该是用齐次坐标表示的。</p>
+</li>
+<li><p>这里颜色缓冲区的颜色就是按照rgb的顺序来的</p>
+</li>
+</ul>
+</li>
+<li><p>后面的改进（composite.fsh文件）实现了调整rgb三个颜色通道</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#version 120</span></span><br><span class="line"></span><br><span class="line">uniform sampler2D texture;</span><br><span class="line"></span><br><span class="line">varying vec4 texcoord;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* DRAWBUFFERS: 0 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    vec4 color = texture2D(texture, texcoord.st);</span><br><span class="line">    gl_FragData[<span class="number">0</span>] = vec4(vec3(color.b*<span class="number">0.8</span>,color.g*<span class="number">0.4</span>,color.b*<span class="number">0.8</span>), <span class="number">1.0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/.io//mywebsite/source/_posts/%E9%A1%B9%E7%9B%AE%E6%95%B4%E7%90%86-minecraft%E5%85%89%E5%BD%B1/image-20230111212510652.png" alt="image-20230111212510652" style="zoom:33%;"></li>
+</ul>
+</li>
+<li><p>实验2：坐标可视化</p>
+<ul>
+<li><p>composite.vsh(和之前一样)</p>
+</li>
+<li><p>composite.fsh</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#version 120</span></span><br><span class="line"></span><br><span class="line">uniform sampler2D texture;</span><br><span class="line">uniform sampler2D depthtex0;</span><br><span class="line"></span><br><span class="line">uniform <span class="type">float</span> far;</span><br><span class="line"></span><br><span class="line">uniform mat4 gbufferModelView;</span><br><span class="line">uniform mat4 gbufferModelViewInverse;</span><br><span class="line">uniform mat4 gbufferProjection;</span><br><span class="line">uniform mat4 gbufferProjectionInverse;</span><br><span class="line"></span><br><span class="line">varying vec4 texcoord;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* DRAWBUFFERS: 0 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    vec4 color = texture2D(texture, texcoord.st);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 获取当前像素深度</span></span><br><span class="line">    <span class="type">float</span> depth = texture2D(depthtex0, texcoord.st).x;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 利用深度缓冲建立带深度的ndc坐标</span></span><br><span class="line">    vec4 positionInNdcCoord = vec4(texcoord.st*<span class="number">2</span><span class="number">-1</span>, depth*<span class="number">2</span><span class="number">-1</span>, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 逆投影变换 -- ndc坐标转到裁剪坐标</span></span><br><span class="line">    vec4 positionInClipCoord = gbufferProjectionInverse * positionInNdcCoord;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 透视除法 -- 裁剪坐标转到眼坐标</span></span><br><span class="line">    vec4 positionInViewCoord = vec4(positionInClipCoord.xyz/positionInClipCoord.w, <span class="number">1.0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 逆 “视图模型” 变换 -- 眼坐标转 “我的世界坐标” </span></span><br><span class="line">    vec4 positionInWorldCoord = gbufferModelViewInverse * positionInViewCoord;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// color.rgb *= ; // 坐标可视化测试</span></span><br><span class="line">    </span><br><span class="line">    gl_FragData[<span class="number">0</span>] = color;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://0MrMKG.github.io">0MrMKG</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://0mrmkg.github.io/2023/01/11/%E9%A1%B9%E7%9B%AE%E6%95%B4%E7%90%86-minecraft%E5%85%89%E5%BD%B1/">https://0mrmkg.github.io/2023/01/11/%E9%A1%B9%E7%9B%AE%E6%95%B4%E7%90%86-minecraft%E5%85%89%E5%BD%B1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230111192855587.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/01/10/%E8%93%9D%E6%A1%A5%E6%9D%AF-10-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C%E5%8F%89%E6%A0%91/"><img class="next-cover" src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-g7rkj7.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">蓝桥杯备赛【10】:二叉树</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.postimg.cc/436z2nWg/2021-10-31-013029.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">0MrMKG</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/0MrMKG"><i class="fab fa-github"></i><span>github主页在这：</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">毋需太多言语,却已彼此照见。</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/01/11/%E9%A1%B9%E7%9B%AE%E6%95%B4%E7%90%86-minecraft%E5%85%89%E5%BD%B1/" title="从零开始开发学习minecraft光影"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230111192855587.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从零开始开发学习minecraft光影"/></a><div class="content"><a class="title" href="/2023/01/11/%E9%A1%B9%E7%9B%AE%E6%95%B4%E7%90%86-minecraft%E5%85%89%E5%BD%B1/" title="从零开始开发学习minecraft光影">从零开始开发学习minecraft光影</a><time datetime="2023-01-10T16:00:00.000Z" title="Created 2023-01-11 00:00:00">2023-01-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/10/%E8%93%9D%E6%A1%A5%E6%9D%AF-10-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C%E5%8F%89%E6%A0%91/" title="蓝桥杯备赛【10】:二叉树"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-g7rkj7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="蓝桥杯备赛【10】:二叉树"/></a><div class="content"><a class="title" href="/2023/01/10/%E8%93%9D%E6%A1%A5%E6%9D%AF-10-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C%E5%8F%89%E6%A0%91/" title="蓝桥杯备赛【10】:二叉树">蓝桥杯备赛【10】:二叉树</a><time datetime="2023-01-09T16:00:00.000Z" title="Created 2023-01-10 00:00:00">2023-01-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/09/%E8%93%9D%E6%A1%A5%E6%9D%AF-9-%E6%95%B0%E8%AE%BA-GCD%20LCM/" title="蓝桥杯备赛【9】GCD LCM 拓展欧几里得"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-vgrvm8.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="蓝桥杯备赛【9】GCD LCM 拓展欧几里得"/></a><div class="content"><a class="title" href="/2023/01/09/%E8%93%9D%E6%A1%A5%E6%9D%AF-9-%E6%95%B0%E8%AE%BA-GCD%20LCM/" title="蓝桥杯备赛【9】GCD LCM 拓展欧几里得">蓝桥杯备赛【9】GCD LCM 拓展欧几里得</a><time datetime="2023-01-08T16:00:00.000Z" title="Created 2023-01-09 00:00:00">2023-01-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/04/%E8%93%9D%E6%A1%A5%E6%9D%AF-7-%E6%95%B0%E5%AD%A6-%E5%BF%AB%E9%80%9F%E5%B9%82%20%E9%AB%98%E6%96%AF%E6%B6%88%E5%85%83/" title="蓝桥杯备赛【7】:快速幂 高斯消元"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/img%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20230104112751.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="蓝桥杯备赛【7】:快速幂 高斯消元"/></a><div class="content"><a class="title" href="/2023/01/04/%E8%93%9D%E6%A1%A5%E6%9D%AF-7-%E6%95%B0%E5%AD%A6-%E5%BF%AB%E9%80%9F%E5%B9%82%20%E9%AB%98%E6%96%AF%E6%B6%88%E5%85%83/" title="蓝桥杯备赛【7】:快速幂 高斯消元">蓝桥杯备赛【7】:快速幂 高斯消元</a><time datetime="2023-01-03T16:00:00.000Z" title="Created 2023-01-04 00:00:00">2023-01-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/03/%E8%93%9D%E6%A1%A5%E6%9D%AF-6-%E5%9F%BA%E7%A1%80-%E7%AE%97%E6%B3%95%E5%A4%8D%E6%9D%82%E5%BA%A6/" title="蓝桥杯备赛【6】:算法复杂度"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-6odoxx.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="蓝桥杯备赛【6】:算法复杂度"/></a><div class="content"><a class="title" href="/2023/01/03/%E8%93%9D%E6%A1%A5%E6%9D%AF-6-%E5%9F%BA%E7%A1%80-%E7%AE%97%E6%B3%95%E5%A4%8D%E6%9D%82%E5%BA%A6/" title="蓝桥杯备赛【6】:算法复杂度">蓝桥杯备赛【6】:算法复杂度</a><time datetime="2023-01-02T16:00:00.000Z" title="Created 2023-01-03 00:00:00">2023-01-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/02/%E8%93%9D%E6%A1%A5%E6%9D%AF-5-%E6%95%B0%E5%AD%A6-%E5%89%8D%E7%BC%80%E5%92%8C%E4%B8%8E%E5%B7%AE%E5%88%86%E6%95%B0%E7%BB%84/" title="蓝桥杯备赛【5】:前缀和 二维前缀和"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-49ezrd.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="蓝桥杯备赛【5】:前缀和 二维前缀和"/></a><div class="content"><a class="title" href="/2023/01/02/%E8%93%9D%E6%A1%A5%E6%9D%AF-5-%E6%95%B0%E5%AD%A6-%E5%89%8D%E7%BC%80%E5%92%8C%E4%B8%8E%E5%B7%AE%E5%88%86%E6%95%B0%E7%BB%84/" title="蓝桥杯备赛【5】:前缀和 二维前缀和">蓝桥杯备赛【5】:前缀和 二维前缀和</a><time datetime="2023-01-01T16:00:00.000Z" title="Created 2023-01-02 00:00:00">2023-01-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/01/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%85%A5%E9%97%A8/" title="【知识整理】计算机图形学入门"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-vge9k8.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【知识整理】计算机图形学入门"/></a><div class="content"><a class="title" href="/2023/01/01/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%85%A5%E9%97%A8/" title="【知识整理】计算机图形学入门">【知识整理】计算机图形学入门</a><time datetime="2022-12-31T16:00:00.000Z" title="Created 2023-01-01 00:00:00">2023-01-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/01/%E8%93%9D%E6%A1%A5%E6%9D%AF-4-%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%AD%97%E7%AC%A6%E4%B8%B2KMP/" title="蓝桥杯备赛【4】:字符串,朴素和KMP模式匹配算法"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-5wxyp1.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="蓝桥杯备赛【4】:字符串,朴素和KMP模式匹配算法"/></a><div class="content"><a class="title" href="/2023/01/01/%E8%93%9D%E6%A1%A5%E6%9D%AF-4-%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%AD%97%E7%AC%A6%E4%B8%B2KMP/" title="蓝桥杯备赛【4】:字符串,朴素和KMP模式匹配算法">蓝桥杯备赛【4】:字符串,朴素和KMP模式匹配算法</a><time datetime="2022-12-31T16:00:00.000Z" title="Created 2023-01-01 00:00:00">2023-01-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/27/%E6%A8%A1%E6%9D%BF/" title="No title"><img src="https://w.wallhaven.cc/full/zy/wallhaven-zyxvqy.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="No title"/></a><div class="content"><a class="title" href="/2022/12/27/%E6%A8%A1%E6%9D%BF/" title="No title">No title</a><time datetime="2022-12-27T08:55:41.082Z" title="Created 2022-12-27 16:55:41">2022-12-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/12/27/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-opencv+%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" title="opencv与数字图像处理"><img src="https://raw.githubusercontent.com/0MrMKG/photo_for_blogs/main/wallhaven-q6m557.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="opencv与数字图像处理"/></a><div class="content"><a class="title" href="/2022/12/27/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-opencv+%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" title="opencv与数字图像处理">opencv与数字图像处理</a><time datetime="2022-12-26T16:00:00.000Z" title="Created 2022-12-27 00:00:00">2022-12-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 0MrMKG</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
