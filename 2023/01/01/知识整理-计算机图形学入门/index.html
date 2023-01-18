@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>【知识整理】计算机图形学入门 | 0MrMKG</title><meta name="author" content="0MrMKG"><meta name="copyright" content="0MrMKG"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="变换  基础知识  二维变换矩阵 齐次坐标 二维仿射变换 三维齐次坐标 罗德里格斯旋转公式    MVP变换  模型变换M  用一些基础变换矩阵固定模型的方位，旋转等参数  摄像机变换V  它是将摄像机的坐标变为原点的过程。 首先要定义几个向量，相机的原始位置e 观察方向g 与视点正上方方向t 其次分为两步，一个是平移，将e移到原点。一个是旋转，让观察方向与视点正上方方向处与坐标轴平行。  如图">
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>【知识整理】计算机图形学入门 | 0MrMKG</title><meta name="author" content="0MrMKG"><meta name="copyright" content="0MrMKG"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="变换  基础知识  二维变换矩阵 包括旋转，缩放，剪切之类的仿射变换的变换矩阵  齐次坐标  二维仿射变换  三维齐次坐标  罗德里格斯旋转公式     MVP变换  模型变换M  用一些基础变换矩阵固定模型的方位，旋转等参数  摄像机变换V  它是将摄像机的坐标变为原点的过程。 首先要定义几个向量，相机的原始位置e 观察方向g 与视点正上方方向t 其次分为两步，一个是平移，将e移到原点。一个是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【知识整理】计算机图形学入门">
 <meta property="og:url" content="https://0mrmkg.github.io/2023/01/01/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%85%A5%E9%97%A8/index.html">
 <meta property="og:site_name" content="0MrMKG">
-<meta property="og:description" content="变换  基础知识  二维变换矩阵 齐次坐标 二维仿射变换 三维齐次坐标 罗德里格斯旋转公式    MVP变换  模型变换M  用一些基础变换矩阵固定模型的方位，旋转等参数  摄像机变换V  它是将摄像机的坐标变为原点的过程。 首先要定义几个向量，相机的原始位置e 观察方向g 与视点正上方方向t 其次分为两步，一个是平移，将e移到原点。一个是旋转，让观察方向与视点正上方方向处与坐标轴平行。  如图">
+<meta property="og:description" content="变换  基础知识  二维变换矩阵 包括旋转，缩放，剪切之类的仿射变换的变换矩阵  齐次坐标  二维仿射变换  三维齐次坐标  罗德里格斯旋转公式     MVP变换  模型变换M  用一些基础变换矩阵固定模型的方位，旋转等参数  摄像机变换V  它是将摄像机的坐标变为原点的过程。 首先要定义几个向量，相机的原始位置e 观察方向g 与视点正上方方向t 其次分为两步，一个是平移，将e移到原点。一个是">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-vge9k8.jpg">
 <meta property="article:published_time" content="2022-12-31T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-01-12T11:58:33.064Z">
+<meta property="article:modified_time" content="2023-01-18T13:15:28.217Z">
 <meta property="article:author" content="0MrMKG">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-vge9k8.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://0mrmkg.github.io/2023/01/01/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%85%A5%E9%97%A8/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
@@ -52,7 +52,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2023-01-12 19:58:33'
+  postUpdate: '2023-01-18 21:15:28'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -141,16 +141,22 @@
       }
     }
     detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.postimg.cc/436z2nWg/2021-10-31-013029.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-vge9k8.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">0MrMKG</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【知识整理】计算机图形学入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-12-31T16:00:00.000Z" title="Created 2023-01-01 00:00:00">2023-01-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-01-12T11:58:33.064Z" title="Updated 2023-01-12 19:58:33">2023-01-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/">知识整理</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【知识整理】计算机图形学入门"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><ul>
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.postimg.cc/436z2nWg/2021-10-31-013029.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-vge9k8.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">0MrMKG</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【知识整理】计算机图形学入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-12-31T16:00:00.000Z" title="Created 2023-01-01 00:00:00">2023-01-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-01-18T13:15:28.217Z" title="Updated 2023-01-18 21:15:28">2023-01-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86/">知识整理</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【知识整理】计算机图形学入门"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><ul>
 <li><p>变换</p>
 <ul>
 <li><p>基础知识</p>
 <ul>
-<li>二维变换矩阵</li>
-<li>齐次坐标</li>
-<li>二维仿射变换</li>
-<li>三维齐次坐标</li>
-<li>罗德里格斯旋转公式</li>
+<li><p>二维变换矩阵</p>
+<p>包括旋转，缩放，剪切之类的仿射变换的变换矩阵</p>
+</li>
+<li><p>齐次坐标</p>
+</li>
+<li><p>二维仿射变换</p>
+</li>
+<li><p>三维齐次坐标</p>
+</li>
+<li><p>罗德里格斯旋转公式</p>
+</li>
 </ul>
 <p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230108114437593.png" alt="image-20230108114437593"></p>
 </li>
@@ -290,7 +296,7 @@
 <p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230112101352625.png" alt="image-20230112101352625"></p>
 </li>
 <li><p>双向三次插值（BiCubic插值）</p>
-<p>双二次插值是通过四个点来得到的，而双向三次插值就采用了16个点进行插值运算（TODO）</p>
+<p>双二次插值是通过四个点来得到的，而双向三次插值就采用了16个点进行插值运算</p>
 </li>
 </ul>
 </li>
