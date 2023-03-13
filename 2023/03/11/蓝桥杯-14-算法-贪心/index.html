@@ -1,0 +1,182 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>【蓝桥杯备赛】14-算法-贪心 | 0MrMKG</title><meta name="author" content="0MrMKG"><meta name="copyright" content="0MrMKG"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="leetcode题目 【1】455-给小朋友分饼干 12345678910class Solution:    # 思路1：优先考虑小胃口    def findContentChildren(self, g: List[int], s: List[int]) -&gt; int:        g.sort()        s.sort()        res &#x3D; 0        for">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【蓝桥杯备赛】14-算法-贪心">
+<meta property="og:url" content="https://0mrmkg.github.io/2023/03/11/%E8%93%9D%E6%A1%A5%E6%9D%AF-14-%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/index.html">
+<meta property="og:site_name" content="0MrMKG">
+<meta property="og:description" content="leetcode题目 【1】455-给小朋友分饼干 12345678910class Solution:    # 思路1：优先考虑小胃口    def findContentChildren(self, g: List[int], s: List[int]) -&gt; int:        g.sort()        s.sort()        res &#x3D; 0        for">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-l8yl6q.jpg">
+<meta property="article:published_time" content="2023-03-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-13T07:24:45.575Z">
+<meta property="article:author" content="0MrMKG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-l8yl6q.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://0mrmkg.github.io/2023/03/11/%E8%93%9D%E6%A1%A5%E6%9D%AF-14-%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【蓝桥杯备赛】14-算法-贪心',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-03-13 15:24:45'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.postimg.cc/436z2nWg/2021-10-31-013029.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-l8yl6q.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">0MrMKG</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【蓝桥杯备赛】14-算法-贪心</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-03-10T16:00:00.000Z" title="Created 2023-03-11 00:00:00">2023-03-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-03-13T07:24:45.575Z" title="Updated 2023-03-13 15:24:45">2023-03-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%93%9D%E6%A1%A5%E6%9D%AF%E5%A4%87%E8%B5%9B/">蓝桥杯备赛</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【蓝桥杯备赛】14-算法-贪心"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><ul>
+<li>leetcode题目<ul>
+<li><p>【1】455-给小朋友分饼干</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="comment"># 思路1：优先考虑小胃口</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">findContentChildren</span>(<span class="params">self, g: <span class="type">List</span>[<span class="built_in">int</span>], s: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        g.sort()</span><br><span class="line">        s.sort()</span><br><span class="line">        res = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)):</span><br><span class="line">            <span class="keyword">if</span> res &lt;<span class="built_in">len</span>(g) <span class="keyword">and</span> s[i] &gt;= g[res]:  <span class="comment">#小饼干先喂饱小胃口</span></span><br><span class="line">                res += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>【2】376-摆动序列</p>
+<p>这一题的贪心考虑比较多：</p>
+<p>首先，判定两个斜坡的数值不一样就加一</p>
+<p>其次，遇到平的坡时也要判断（一边为0也算一次）</p>
+<p>还有，首位部分要算，由此做一个奇怪的处理，加到里面</p>
+<p>最后，在平坡上面，如果遇到连续上坡，连续下坡的平坡的话，这也不算是answer之中的考虑。由此不能一直更新一边的斜率值，只有当遇到坡度的时候再对其进行再一次修改。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        self.answer = <span class="number">1</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">wiggleMaxLength</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        nextdiff = <span class="number">0</span></span><br><span class="line">        nums.append(nums[-<span class="number">1</span>])</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)):</span><br><span class="line">            <span class="keyword">if</span> i&gt;=<span class="number">1</span> <span class="keyword">and</span> i&lt;=<span class="built_in">len</span>(nums)-<span class="number">2</span>:</span><br><span class="line">                prediff = nums[i]-nums[i-<span class="number">1</span>]</span><br><span class="line">                <span class="keyword">if</span> prediff&lt;<span class="number">0</span> <span class="keyword">and</span> nextdiff&gt;=<span class="number">0</span> <span class="keyword">or</span> prediff&gt;<span class="number">0</span> <span class="keyword">and</span> nextdiff&lt;=<span class="number">0</span>:</span><br><span class="line">                    nextdiff = prediff</span><br><span class="line">                    self.answer += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> self.answer</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>【3】53-最大子数组的和</p>
+<p>注意这里的python表示无穷小值用<font color="cornflowerblue">-float（‘inf’）</font>来指定</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">maxSubArray</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="built_in">sum</span> = <span class="number">0</span></span><br><span class="line">        result = -<span class="built_in">float</span>(<span class="string">&#x27;inf&#x27;</span>)</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)):</span><br><span class="line">            <span class="built_in">sum</span> += nums[i]</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">sum</span> &gt;= result: result = <span class="built_in">sum</span></span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">sum</span> &lt; <span class="number">0</span> :<span class="built_in">sum</span> = <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>【4】122-买卖股票最佳时机ll</p>
+<p>首先。获得利润可以用后一个减前一个来表征，表示持有股票这天能赚的钱。贪心策略就是让这个为正，有两种情况：一种是一直为正，则一直持有该股票就很赚；还有一种是遇到亏损，此时应该提前卖出股票，从而在下一次为正的时候能够买入股票继续操作。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">maxProfit</span>(<span class="params">self, prices: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        result = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(prices)):</span><br><span class="line">            <span class="keyword">if</span> i == <span class="number">0</span> :<span class="keyword">continue</span></span><br><span class="line">            result += <span class="built_in">max</span>(prices[i]-prices[i-<span class="number">1</span>],<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>PS：还可以动态规划来做</li>
+</ul>
+</li>
+<li><p>【5】1005-K 次取反后最大化的数组和</p>
+<p>需要考虑到给定翻牌子的数量要大于数组容量</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">largestSumAfterKNegations</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], k: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        nums.sort(reverse=<span class="literal">False</span>)</span><br><span class="line">        count = k</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(count):</span><br><span class="line">            <span class="keyword">if</span> i&lt;<span class="built_in">len</span>(nums) <span class="keyword">and</span> nums[i] &lt; <span class="number">0</span>:</span><br><span class="line">                nums[i] = -nums[i]</span><br><span class="line">                count -= <span class="number">1</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            nums.sort()</span><br><span class="line">            <span class="keyword">if</span> count &gt; <span class="number">0</span>:</span><br><span class="line">                nums[<span class="number">0</span>] = -nums[<span class="number">0</span>]</span><br><span class="line">                count -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sum</span>(nums)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>【6】134-加油站</p>
+<p>暴力方法爆炸了学一下别人的暴力法，可以用%来模拟循环的一列数，循环的时候可以用while，更加方便。</p>
+<p>有两种贪心的方法。我选择第二种编码了：</p>
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230313151420384.png" alt="image-20230313151420384"></p>
+<p><img src="/.io//mywebsite/source/_posts/%E8%93%9D%E6%A1%A5%E6%9D%AF-14-%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/image-20230313151533302.png" alt="image-20230313151533302"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">canCompleteCircuit</span>(<span class="params">self, gas: <span class="type">List</span>[<span class="built_in">int</span>], cost: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        start = <span class="number">0</span></span><br><span class="line">        curSum = <span class="number">0</span></span><br><span class="line">        totalSum = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(gas)):</span><br><span class="line">            curSum += gas[i] - cost[i]</span><br><span class="line">            totalSum += gas[i] - cost[i]</span><br><span class="line">            <span class="keyword">if</span> curSum &lt; <span class="number">0</span>:</span><br><span class="line">                curSum = <span class="number">0</span></span><br><span class="line">                start = i + <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> totalSum &lt; <span class="number">0</span>: <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> start</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://0MrMKG.github.io">0MrMKG</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://0mrmkg.github.io/2023/03/11/%E8%93%9D%E6%A1%A5%E6%9D%AF-14-%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/">https://0mrmkg.github.io/2023/03/11/%E8%93%9D%E6%A1%A5%E6%9D%AF-14-%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-l8yl6q.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/03/08/leetcode_%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/"><img class="next-cover" src="https://w.wallhaven.cc/full/zy/wallhaven-zyxvqy.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">leetcode刷题记录</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.postimg.cc/436z2nWg/2021-10-31-013029.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">0MrMKG</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">25</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/0MrMKG"><i class="fab fa-github"></i><span>github主页在这：</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">毋需太多言语,却已彼此照见。</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/03/11/%E8%93%9D%E6%A1%A5%E6%9D%AF-14-%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/" title="【蓝桥杯备赛】14-算法-贪心"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-l8yl6q.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【蓝桥杯备赛】14-算法-贪心"/></a><div class="content"><a class="title" href="/2023/03/11/%E8%93%9D%E6%A1%A5%E6%9D%AF-14-%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/" title="【蓝桥杯备赛】14-算法-贪心">【蓝桥杯备赛】14-算法-贪心</a><time datetime="2023-03-10T16:00:00.000Z" title="Created 2023-03-11 00:00:00">2023-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/08/leetcode_%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/" title="leetcode刷题记录"><img src="https://w.wallhaven.cc/full/zy/wallhaven-zyxvqy.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="leetcode刷题记录"/></a><div class="content"><a class="title" href="/2023/03/08/leetcode_%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/" title="leetcode刷题记录">leetcode刷题记录</a><time datetime="2023-03-07T16:00:00.000Z" title="Created 2023-03-08 00:00:00">2023-03-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/01/%E8%93%9D%E6%A1%A5%E6%9D%AF-13-%E7%AE%97%E6%B3%95-%E5%9B%9E%E6%BA%AF/" title="【蓝桥杯备赛】13-回溯"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/img2023020222222463dbc72005127.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【蓝桥杯备赛】13-回溯"/></a><div class="content"><a class="title" href="/2023/03/01/%E8%93%9D%E6%A1%A5%E6%9D%AF-13-%E7%AE%97%E6%B3%95-%E5%9B%9E%E6%BA%AF/" title="【蓝桥杯备赛】13-回溯">【蓝桥杯备赛】13-回溯</a><time datetime="2023-02-28T16:00:00.000Z" title="Created 2023-03-01 00:00:00">2023-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/28/%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86-%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/" title="【学习整理】算法设计与分析"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-p8j913.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【学习整理】算法设计与分析"/></a><div class="content"><a class="title" href="/2023/02/28/%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86-%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%88%86%E6%9E%90/" title="【学习整理】算法设计与分析">【学习整理】算法设计与分析</a><time datetime="2023-02-27T16:00:00.000Z" title="Created 2023-02-28 00:00:00">2023-02-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/21/%E8%93%9D%E6%A1%A5%E6%9D%AF-12-%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="蓝桥杯-12-算法-动态规划"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-855me2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="蓝桥杯-12-算法-动态规划"/></a><div class="content"><a class="title" href="/2023/02/21/%E8%93%9D%E6%A1%A5%E6%9D%AF-12-%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="蓝桥杯-12-算法-动态规划">蓝桥杯-12-算法-动态规划</a><time datetime="2023-02-20T16:00:00.000Z" title="Created 2023-02-21 00:00:00">2023-02-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/01/%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86-LearningOpenGL/" title="学习整理-OpenGL"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-vg2mo5.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="学习整理-OpenGL"/></a><div class="content"><a class="title" href="/2023/02/01/%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86-LearningOpenGL/" title="学习整理-OpenGL">学习整理-OpenGL</a><time datetime="2023-01-31T16:00:00.000Z" title="Created 2023-02-01 00:00:00">2023-02-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/26/%E6%9C%80%E8%BF%91%E8%AE%A1%E5%88%92/" title="目前计划"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-r26m51.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="目前计划"/></a><div class="content"><a class="title" href="/2023/01/26/%E6%9C%80%E8%BF%91%E8%AE%A1%E5%88%92/" title="目前计划">目前计划</a><time datetime="2023-01-25T16:00:00.000Z" title="Created 2023-01-26 00:00:00">2023-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/19/%E8%93%9D%E6%A1%A5%E6%9D%AF-11-%E5%9B%BE%E8%AE%BA-BFS%20DFS/" title="蓝桥杯备赛【11】BFS和DFS"><img src="https://w.wallhaven.cc/full/zy/wallhaven-zyxvqy.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="蓝桥杯备赛【11】BFS和DFS"/></a><div class="content"><a class="title" href="/2023/01/19/%E8%93%9D%E6%A1%A5%E6%9D%AF-11-%E5%9B%BE%E8%AE%BA-BFS%20DFS/" title="蓝桥杯备赛【11】BFS和DFS">蓝桥杯备赛【11】BFS和DFS</a><time datetime="2023-01-18T16:00:00.000Z" title="Created 2023-01-19 00:00:00">2023-01-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/11/%E9%A1%B9%E7%9B%AE%E6%95%B4%E7%90%86-minecraft%E5%85%89%E5%BD%B1/" title="从零开始开发学习minecraft光影"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230111192855587.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从零开始开发学习minecraft光影"/></a><div class="content"><a class="title" href="/2023/01/11/%E9%A1%B9%E7%9B%AE%E6%95%B4%E7%90%86-minecraft%E5%85%89%E5%BD%B1/" title="从零开始开发学习minecraft光影">从零开始开发学习minecraft光影</a><time datetime="2023-01-10T16:00:00.000Z" title="Created 2023-01-11 00:00:00">2023-01-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/10/%E8%93%9D%E6%A1%A5%E6%9D%AF-10-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C%E5%8F%89%E6%A0%91/" title="蓝桥杯备赛【10】:二叉树"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-g7rkj7.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="蓝桥杯备赛【10】:二叉树"/></a><div class="content"><a class="title" href="/2023/01/10/%E8%93%9D%E6%A1%A5%E6%9D%AF-10-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C%E5%8F%89%E6%A0%91/" title="蓝桥杯备赛【10】:二叉树">蓝桥杯备赛【10】:二叉树</a><time datetime="2023-01-09T16:00:00.000Z" title="Created 2023-01-10 00:00:00">2023-01-10</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 0MrMKG</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
