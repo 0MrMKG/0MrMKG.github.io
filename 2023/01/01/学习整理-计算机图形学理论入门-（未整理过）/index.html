@@ -1,0 +1,377 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>【知识整理】计算机图形学入门 | 0MrMKG</title><meta name="author" content="0MrMKG"><meta name="copyright" content="0MrMKG"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="变换  基础知识  二维变换矩阵 包括旋转，缩放，剪切之类的仿射变换的变换矩阵  齐次坐标  二维仿射变换  三维齐次坐标  罗德里格斯旋转公式     MVP变换  模型变换M  用一些基础变换矩阵固定模型的方位，旋转等参数  摄像机变换V  它是将摄像机的坐标变为原点的过程。 首先要定义几个向量，相机的原始位置e 观察方向g 与视点正上方方向t 其次分为两步，一个是平移，将e移到原点。一个是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【知识整理】计算机图形学入门">
+<meta property="og:url" content="https://0mrmkg.github.io/2023/01/01/%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%90%86%E8%AE%BA%E5%85%A5%E9%97%A8-%EF%BC%88%E6%9C%AA%E6%95%B4%E7%90%86%E8%BF%87%EF%BC%89/index.html">
+<meta property="og:site_name" content="0MrMKG">
+<meta property="og:description" content="变换  基础知识  二维变换矩阵 包括旋转，缩放，剪切之类的仿射变换的变换矩阵  齐次坐标  二维仿射变换  三维齐次坐标  罗德里格斯旋转公式     MVP变换  模型变换M  用一些基础变换矩阵固定模型的方位，旋转等参数  摄像机变换V  它是将摄像机的坐标变为原点的过程。 首先要定义几个向量，相机的原始位置e 观察方向g 与视点正上方方向t 其次分为两步，一个是平移，将e移到原点。一个是">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-vge9k8.jpg">
+<meta property="article:published_time" content="2022-12-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-04-06T14:49:20.488Z">
+<meta property="article:author" content="0MrMKG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-vge9k8.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://0mrmkg.github.io/2023/01/01/%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%90%86%E8%AE%BA%E5%85%A5%E9%97%A8-%EF%BC%88%E6%9C%AA%E6%95%B4%E7%90%86%E8%BF%87%EF%BC%89/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【知识整理】计算机图形学入门',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-04-06 22:49:20'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.postimg.cc/436z2nWg/2021-10-31-013029.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-vge9k8.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">0MrMKG</a></span><div id="menus"><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【知识整理】计算机图形学入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2022-12-31T16:00:00.000Z" title="Created 2023-01-01 00:00:00">2023-01-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-04-06T14:49:20.488Z" title="Updated 2023-04-06 22:49:20">2023-04-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86/">学习整理</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【知识整理】计算机图形学入门"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><ul>
+<li><p>变换</p>
+<ul>
+<li><p>基础知识</p>
+<ul>
+<li><p>二维变换矩阵</p>
+<p>包括旋转，缩放，剪切之类的仿射变换的变换矩阵</p>
+</li>
+<li><p>齐次坐标</p>
+</li>
+<li><p>二维仿射变换</p>
+</li>
+<li><p>三维齐次坐标</p>
+</li>
+<li><p>罗德里格斯旋转公式</p>
+</li>
+</ul>
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230108114437593.png" alt="image-20230108114437593"></p>
+</li>
+<li><p>MVP变换</p>
+<ul>
+<li>模型变换M</li>
+</ul>
+<p>用一些基础变换矩阵固定模型的方位，旋转等参数</p>
+<ul>
+<li><p>摄像机变换V</p>
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230111101433443.png" alt="image-20230111101433443"></p>
+<p>它是将摄像机的坐标变为原点的过程。</p>
+<p>首先要定义几个向量，相机的原始位置e 观察方向g 与视点正上方方向t</p>
+<p>其次分为两步，一个是平移，将e移到原点。一个是旋转，让观察方向与视点正上方方向处与坐标轴平行。</p>
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230110170555095.png" alt="image-20230110170555095"></p>
+<p>如图所示，先绕着自身的原点旋转然后平移。(因为这是相对于原坐标系的) 旋转部分可以用逆矩阵来求，记一下这个矩阵。（注意正交矩阵的逆矩阵就是转置矩阵）</p>
+<img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230111101136750.png" alt="image-20230111101136750" style="zoom: 43%;">
+</li>
+<li><p>投影变换P</p>
+<img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230111102432820.png" alt="image-20230111102432820" style="zoom: 50%;">
+
+<ul>
+<li><p>正交投影变换</p>
+<p>就是将用一个立方体[l,r]x[b,t]x[f,n]框住物体，然后将这个正方体映射到标准的正方体里面。它是由一个正则化的矩阵和一个平移的矩阵构成</p>
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230111102859477.png" alt="image-20230111102859477"></p>
+</li>
+<li><p>透视投影变换</p>
+<p>两部分，一部分缩放一部分投影</p>
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230111111815412.png" alt="image-20230111111815412"></p>
+<img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230111113018371.png" alt="image-20230111113018371" style="zoom:33%;">
+
+<p>如上图，一个是直接变换，一个是先缩放后平移，于是得到推导中的两个方程的来源：近平面远平面的z轴不变。由此列出等式，而上文推到中，近平面是用一般坐标列式的，远平面是用原点列式的。</p>
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230111111851293.png" alt="image-20230111111851293"></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>裁剪空间</p>
+<ul>
+<li><p>标准设备坐标NDC</p>
+<p>应用了投影矩阵以后齐次坐标就不是1了，通过齐次坐标的变换将它改成1，就是转变到笛卡尔坐标系里面了，此时叫做标准设备坐标NDC。而这个转换叫透视除法，将裁剪坐标变成NDC坐标。</p>
+</li>
+<li><p>视口变换</p>
+<p>现在的标准立方体中心在原点，而屏幕的原点在左下角。因此需要将原点平移，而且还要把整个坐标适应屏幕进行放大。这里视口变换应该和视锥有关系，如果不适配好的话，还是会造成图像拉伸之类的问题。</p>
+</li>
+</ul>
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230111114907589.png" alt="image-20230111114907589"></p>
+</li>
+</ul>
+</li>
+<li><p>光栅化</p>
+<ul>
+<li><p>三角形</p>
+<ul>
+<li><p>光栅化采样</p>
+<p>就是利用像素中心对屏幕空间采样</p>
+</li>
+<li><p>判断像素在三角形内</p>
+<p>利用叉乘的符号判断</p>
+<img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230111122613394.png" alt="image-20230111122613394" style="zoom: 25%;">
+</li>
+<li><p>优化方法Boundingbox</p>
+<p>用一个BoundingBox包围三角形，划定范围测试，节约。</p>
+</li>
+</ul>
+</li>
+<li><p>深度测试与抗锯齿</p>
+<ul>
+<li><p>反走样的方法</p>
+<p>走样产生原因就是采样跟不上频率，以下有几种采样方法</p>
+<ul>
+<li>MSAA</li>
+<li>FXAA</li>
+<li>TAA</li>
+<li>DLSS</li>
+</ul>
+</li>
+<li><p>深度测试</p>
+<ul>
+<li><p>Z-buffer算法</p>
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230111123604854.png" alt="image-20230111123604854"></p>
+<img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230111123627755.png" alt="image-20230111123627755" style="zoom:50%;"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>着色</p>
+<p>​	   着色就是物体应用材质的过程</p>
+<ul>
+<li><p>着色的组成</p>
+<ol>
+<li><p>高光反射</p>
+<ul>
+<li><p><font color="green">Phong反射模型</font></p>
+<img src="/.io//mywebsite/source/_posts/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%85%A5%E9%97%A8/image-20230112091033365.png" alt="image-20230112091033365" style="zoom: 33%;">
+
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230112091140970.png" alt="image-20230112091140970"></p>
+</li>
+</ul>
+</li>
+<li><p>漫反射</p>
+<ul>
+<li><p><font color="green">Lambert漫反射模型</font></p>
+<p>Lambert模型主要是运用光线l与平面上的法线夹角来决定光照强度，直觉上就是光照强度乘以夹角的余弦值。</p>
+<p>Lambert模型还包括了光的能量衰减，与距离平方成反比。</p>
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230112091554202.png" alt="image-20230112091554202"></p>
+</li>
+<li><p><font color="green">Blinn-Phong模型</font></p>
+<p>它引入了半程向量n来处理高光，高光强度是按照反射的光线与视线的夹角，而这里通过转换，判断半程向量与法线是否重合。</p>
+</li>
+</ul>
+</li>
+</ol>
+<img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230112092019527.png" alt="image-20230112092019527" style="zoom: 50%;">
+</li>
+<li><p>着色频率</p>
+<ul>
+<li>平面着色</li>
+<li>顶点着色</li>
+<li>像素着色</li>
+</ul>
+</li>
+<li><p>纹理坐标UV</p>
+<p>表示Texture映射关系。一般来说，对于一个像素，先算出uv坐标，uv坐标能够查询texture上的颜色，然后将这个颜色信息当作漫反射系数Kd</p>
+</li>
+<li><p>着色（插值，高级纹理映射）</p>
+<ul>
+<li><p>纹理过小</p>
+<ul>
+<li><p>概述</p>
+<p>纹理过小说明应该拓展图像的大小。以下这两种插值方法都是属于非自适应算法</p>
+</li>
+<li><p>双线性插值</p>
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230112101352625.png" alt="image-20230112101352625"></p>
+</li>
+<li><p>双向三次插值（BiCubic插值）</p>
+<p>双二次插值是通过四个点来得到的，而双向三次插值就采用了16个点进行插值运算</p>
+</li>
+</ul>
+</li>
+<li><p>纹理过大</p>
+<ul>
+<li></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>几何</p>
+</li>
+<li><p>光线追踪</p>
+<ul>
+<li><p>基本原理</p>
+</li>
+<li><p>加速结构</p>
+</li>
+<li><p>光线的描述</p>
+<ul>
+<li><p><font color="orange">Radiant Energy</font> 辐射能量 表示辐射出来的能量</p>
+</li>
+<li><p><font color="orange">Radiant flux</font> 辐射通量 单位时间的能量，类似功率</p>
+</li>
+<li><p><font color="orange">Radiant intensity</font> 辐射强度 <font color="green">单位立体角</font>上辐射通量</p>
+</li>
+<li><p><font color="orange">lrradiance</font> 辐射通量密度 单位面积所接收的能量</p>
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230119150004553.png" alt="image-20230119150004553"></p>
+<p>此外，根据定义还可以知道能量衰减与r的平方成反比</p>
+</li>
+<li><p><font color="orange">Radiance</font> 单位立体角，单位垂直面积的功率（与irradiance相比，增加了方向性）</p>
+<p>是为了描述光线的属性。两次微分，一次单位立体角，一次垂直面积。</p>
+<p>radiance &#x3D; irradiance+立体角 &#x3D; intensity+垂直面积</p>
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230119150821038.png" alt="image-20230119150821038"></p>
+</li>
+<li><p><font color="green">单位立体角</font></p>
+<p>三维空间上的弧度，数值上等于球面上一个面积A除以r的平方</p>
+</li>
+</ul>
+<img src="/.io//mywebsite/source/_posts/%E7%9F%A5%E8%AF%86%E6%95%B4%E7%90%86-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%85%A5%E9%97%A8/image-20230119122439029.png" alt="image-20230119122439029" style="zoom:50%;">
+
+<ul>
+<li><p><font color="green">微分立体角</font></p>
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230119122611654.png" alt="image-20230119122611654"></p>
+</li>
+</ul>
+</li>
+<li><p>BRDF双向反射分布函数</p>
+<ul>
+<li><p>描述单位微小面积的irradiance分配到不同方向上的radiance的过程</p>
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230119152131857.png" alt="image-20230119152131857"></p>
+</li>
+</ul>
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230119155255100.png" alt="image-20230119155255100"></p>
+<ul>
+<li><p>反射方程</p>
+<p>理解：入射的irradiance的总和经过BRDF就能够变成出射光线的radiance总和</p>
+</li>
+</ul>
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230119155639335.png" alt="image-20230119155639335"></p>
+<ul>
+<li><p>渲染方程</p>
+<p>这里默认从上面的平面打过来的光照。前一项是指x点处发出来的光。</p>
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230119160425190.png" alt="image-20230119160425190"></p>
+</li>
+</ul>
+</li>
+<li><p>蒙特卡洛积分（概率论）</p>
+</li>
+<li><p>蒙特卡洛法解渲染方程</p>
+<p><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230202152327614.png" alt="image-20230202152327614"></p>
+</li>
+</ul>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://0MrMKG.github.io">0MrMKG</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://0mrmkg.github.io/2023/01/01/%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%90%86%E8%AE%BA%E5%85%A5%E9%97%A8-%EF%BC%88%E6%9C%AA%E6%95%B4%E7%90%86%E8%BF%87%EF%BC%89/">https://0mrmkg.github.io/2023/01/01/%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E7%90%86%E8%AE%BA%E5%85%A5%E9%97%A8-%EF%BC%88%E6%9C%AA%E6%95%B4%E7%90%86%E8%BF%87%EF%BC%89/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-vge9k8.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/01/01/Leetcode-4-%E5%AD%97%E7%AC%A6%E4%B8%B2-%E5%AD%97%E7%AC%A6%E4%B8%B2KMP/"><img class="prev-cover" src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-5wxyp1.png" onerror="onerror=null;src='https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230406214040196.png'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">Leetcode【4】:字符串,朴素和KMP模式匹配算法</div></div></a></div><div class="next-post pull-right"><a href="/2022/12/27/%E7%A9%BA%E7%99%BD%E6%A8%A1%E6%9D%BF/"><img class="next-cover" src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230406214040196.png" onerror="onerror=null;src='https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230406214040196.png'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info"></div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.postimg.cc/436z2nWg/2021-10-31-013029.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">0MrMKG</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/0MrMKG"><i class="fab fa-github"></i><span>github主页：</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">毋需多言</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/04/22/%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86-pandas/" title="学习整理-pandas库"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-54lqq0.jpg" onerror="this.onerror=null;this.src='https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230406214040196.png'" alt="学习整理-pandas库"/></a><div class="content"><a class="title" href="/2023/04/22/%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86-pandas/" title="学习整理-pandas库">学习整理-pandas库</a><time datetime="2023-04-21T16:00:00.000Z" title="Created 2023-04-22 00:00:00">2023-04-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/27/Leetcode_%E9%A2%98%E5%8D%95_%E5%89%91%E6%8C%87Offer-l/" title="《剑指offer》"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-4961pk.jpg" onerror="this.onerror=null;this.src='https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230406214040196.png'" alt="《剑指offer》"/></a><div class="content"><a class="title" href="/2023/03/27/Leetcode_%E9%A2%98%E5%8D%95_%E5%89%91%E6%8C%87Offer-l/" title="《剑指offer》">《剑指offer》</a><time datetime="2023-03-26T16:00:00.000Z" title="Created 2023-03-27 00:00:00">2023-03-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/21/Leetcode-15-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%93%88%E5%B8%8C%E8%A1%A8%EF%BC%8C%E8%AE%A1%E6%95%B0/" title="Leetcode-15-数据结构-哈希表，计数"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230321081140132.png)" onerror="this.onerror=null;this.src='https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230406214040196.png'" alt="Leetcode-15-数据结构-哈希表，计数"/></a><div class="content"><a class="title" href="/2023/03/21/Leetcode-15-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%93%88%E5%B8%8C%E8%A1%A8%EF%BC%8C%E8%AE%A1%E6%95%B0/" title="Leetcode-15-数据结构-哈希表，计数">Leetcode-15-数据结构-哈希表，计数</a><time datetime="2023-03-20T16:00:00.000Z" title="Created 2023-03-21 00:00:00">2023-03-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/21/Leetcode-16-%E6%8A%80%E5%B7%A7-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%8F%8C%E6%8C%87%E9%92%88/" title="Leetcode-16-技巧-滑动窗口与双指针"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimgwallhaven-47oxqy.jpg" onerror="this.onerror=null;this.src='https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230406214040196.png'" alt="Leetcode-16-技巧-滑动窗口与双指针"/></a><div class="content"><a class="title" href="/2023/03/21/Leetcode-16-%E6%8A%80%E5%B7%A7-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E4%B8%8E%E5%8F%8C%E6%8C%87%E9%92%88/" title="Leetcode-16-技巧-滑动窗口与双指针">Leetcode-16-技巧-滑动窗口与双指针</a><time datetime="2023-03-20T16:00:00.000Z" title="Created 2023-03-21 00:00:00">2023-03-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/17/%E7%BB%84%E5%86%85%E5%AD%A6%E4%B9%A0-ESN/" title="(ESN)Network Flow Anomaly Detection Based on Improved Echo"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230406214040196.png" onerror="this.onerror=null;this.src='https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230406214040196.png'" alt="(ESN)Network Flow Anomaly Detection Based on Improved Echo"/></a><div class="content"><a class="title" href="/2023/03/17/%E7%BB%84%E5%86%85%E5%AD%A6%E4%B9%A0-ESN/" title="(ESN)Network Flow Anomaly Detection Based on Improved Echo">(ESN)Network Flow Anomaly Detection Based on Improved Echo</a><time datetime="2023-03-16T16:00:00.000Z" title="Created 2023-03-17 00:00:00">2023-03-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/11/Leetcode-14-%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/" title="Leetcode-14-算法-贪心"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-l8yl6q.jpg" onerror="this.onerror=null;this.src='https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230406214040196.png'" alt="Leetcode-14-算法-贪心"/></a><div class="content"><a class="title" href="/2023/03/11/Leetcode-14-%E7%AE%97%E6%B3%95-%E8%B4%AA%E5%BF%83/" title="Leetcode-14-算法-贪心">Leetcode-14-算法-贪心</a><time datetime="2023-03-10T16:00:00.000Z" title="Created 2023-03-11 00:00:00">2023-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/08/Leetcode_%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/" title="leetcode刷题记录"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-48zel2.jpg" onerror="this.onerror=null;this.src='https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230406214040196.png'" alt="leetcode刷题记录"/></a><div class="content"><a class="title" href="/2023/03/08/Leetcode_%E6%9D%82%E9%A2%98%E8%AE%B0%E5%BD%95/" title="leetcode刷题记录">leetcode刷题记录</a><time datetime="2023-03-07T16:00:00.000Z" title="Created 2023-03-08 00:00:00">2023-03-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/01/Leetcode-13-%E7%AE%97%E6%B3%95-%E5%9B%9E%E6%BA%AF/" title="Leetcode-13-算法-回溯"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/img2023020222222463dbc72005127.jpg" onerror="this.onerror=null;this.src='https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230406214040196.png'" alt="Leetcode-13-算法-回溯"/></a><div class="content"><a class="title" href="/2023/03/01/Leetcode-13-%E7%AE%97%E6%B3%95-%E5%9B%9E%E6%BA%AF/" title="Leetcode-13-算法-回溯">Leetcode-13-算法-回溯</a><time datetime="2023-02-28T16:00:00.000Z" title="Created 2023-03-01 00:00:00">2023-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/21/Leetcode-12-%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="【Leetcode】12-算法-动态规划"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-855me2.jpg" onerror="this.onerror=null;this.src='https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230406214040196.png'" alt="【Leetcode】12-算法-动态规划"/></a><div class="content"><a class="title" href="/2023/02/21/Leetcode-12-%E7%AE%97%E6%B3%95-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="【Leetcode】12-算法-动态规划">【Leetcode】12-算法-动态规划</a><time datetime="2023-02-20T16:00:00.000Z" title="Created 2023-02-21 00:00:00">2023-02-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/01/%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86-LearningOpenGL-%EF%BC%88%E6%9C%AA%E6%95%B4%E7%90%86%E8%BF%87%EF%BC%89/" title="学习整理-OpenGL"><img src="https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgwallhaven-vg2mo5.png" onerror="this.onerror=null;this.src='https://blogphoto1.oss-cn-shanghai.aliyuncs.com/imgimage-20230406214040196.png'" alt="学习整理-OpenGL"/></a><div class="content"><a class="title" href="/2023/02/01/%E5%AD%A6%E4%B9%A0%E6%95%B4%E7%90%86-LearningOpenGL-%EF%BC%88%E6%9C%AA%E6%95%B4%E7%90%86%E8%BF%87%EF%BC%89/" title="学习整理-OpenGL">学习整理-OpenGL</a><time datetime="2023-01-31T16:00:00.000Z" title="Created 2023-02-01 00:00:00">2023-02-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By 0MrMKG</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
